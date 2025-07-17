@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -27,27 +27,28 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
-    
+
     /**
-     * create a new controller instance.
+     * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->except('logout');
+        $this->middleware('auth')->only('logout');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if(auth()->attempt($credentials)) {
+        if (auth()->attempt($credentials)) {
             return redirect('/admin');
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         auth()->logout();
         return redirect()->route('login');
     }
