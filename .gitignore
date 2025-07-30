@@ -19,3 +19,10 @@ yarn-error.log
 /.vscode
 /docker
 
+# Ignore sensitive or build files
+env
+composer.json
+composer.lock
+Dockerfile
+package-lock.json
+
