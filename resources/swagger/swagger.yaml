@@ -1,0 +1,316 @@
+# openapi: 3.0.3
+# info:
+#   title: To Say API
+#   description: API documentation for the "To Say" application - Phase 1
+#   version: 1.0.0
+# servers:
+#   - url: http://localhost/api
+#     description: Local development server
+
+
+# tags:
+#   - name: User
+#     description: API for regular users (register, login, create message...)
+#   - name: Admin
+#     description: API for administrators (approve/reject messages...)
+
+# paths:
+
+#   /auth/register:
+#     post:
+#       tags: [User]
+#       summary: Register a new user
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/RegisterRequest'
+#       responses:
+#         '201':
+#           description: User registered successfully
+
+#   /auth/login:
+#     post:
+#       tags: [User]
+#       summary: User login
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/LoginRequest'
+#       responses:
+#         '200':
+#           description: Login successful
+
+#   /auth/profile:
+#     get:
+#       tags: [User]
+#       summary: Get current user profile
+#       responses:
+#         '200':
+#           description: User profile
+#     put:
+#       tags: [User]
+#       summary: Update user profile
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/UpdateProfileRequest'
+#       responses:
+#         '200':
+#           description: Profile updated
+
+#   /messages:
+#     post:
+#       tags: [User]
+#       summary: Create a message
+#       requestBody:
+#         required: true
+#         content:
+#           multipart/form-data:
+#             schema:
+#               $ref: '#/components/schemas/CreateMessageRequest'
+#       responses:
+#         '201':
+#           description: Message created
+
+#     get:
+#       tags: [User]
+#       summary: Get user’s messages
+#       responses:
+#         '200':
+#           description: List of user messages
+
+#   /messages/{id}:
+#     get:
+#       tags: [User]
+#       summary: Get message detail
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         '200':
+#           description: Message detail
+
+#   /admin/login:
+#     post:
+#       tags: [Admin]
+#       summary: Admin login
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/LoginRequest'
+#       responses:
+#         '200':
+#           description: Login successful
+
+#   /admin/messages/pending:
+#     get:
+#       tags: [Admin]
+#       summary: List of messages pending approval
+#       responses:
+#         '200':
+#           description: List of pending messages
+
+#   /admin/messages/{id}:
+#     get:
+#       tags: [Admin, User]
+#       summary: Get full message detail
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         '200':
+#           description: Message detail
+
+#   /admin/messages/{id}/approve:
+#     post:
+#       tags: [Admin]
+#       summary: Approve message
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         '200':
+#           description: Message approved
+
+#   /admin/messages/{id}/reject:
+#     post:
+#       tags: [Admin]
+#       summary: Reject message
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/RejectReason'
+#       responses:
+#         '200':
+#           description: Message rejected
+          
+#     /blogs:
+#     get:
+#       tags: [User]
+#       summary: Get list of blogs
+#       responses:
+#         '200':
+#           description: List of blogs
+
+#   /blogs/{id}:
+#     get:
+#       tags: [User]
+#       summary: Get blog detail
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         '200':
+#           description: Blog detail
+
+#   /admin/blogs:
+#     get:
+#       tags: [Admin]
+#       summary: Get list of blogs created by admin
+#       responses:
+#         '200':
+#           description: List of blogs
+
+#     post:
+#       tags: [Admin]
+#       summary: Create a new blog
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateBlogRequest'
+#       responses:
+#         '201':
+#           description: Blog created
+
+#   /admin/blogs/{id}:
+#     put:
+#       tags: [Admin]
+#       summary: Update a blog
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateBlogRequest'
+#       responses:
+#         '200':
+#           description: Blog updated
+
+#     delete:
+#       tags: [Admin]
+#       summary: Delete a blog
+#       parameters:
+#         - name: id
+#           in: path
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         '204':
+#           description: Blog deleted
+
+# components:
+#   schemas:
+#     RegisterRequest:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         email:
+#           type: string
+#         password:
+#           type: string
+#       required: [name, email, password]
+
+#     LoginRequest:
+#       type: object
+#       properties:
+#         email:
+#           type: string
+#         password:
+#           type: string
+#       required: [email, password]
+
+#     UpdateProfileRequest:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         phone:
+#           type: string
+#         password:
+#           type: string
+
+#     CreateMessageRequest:
+#       type: object
+#       properties:
+#         type:
+#           type: string
+#           enum: [text, image, voice, music]
+#         content:
+#           type: string
+#           format: binary
+#         recipient_email:
+#           type: string
+#         recipient_phone:
+#           type: string
+#         note:
+#           type: string
+#         channel:
+#           type: string
+#           enum: [email, phone, sms, zalo, in-app]
+#       required: [type, content, channel]
+
+#     RejectReason:
+#       type: object
+#       properties:
+#         id:
+#           type: string
+#       required: [id]
+      
+#     CreateBlogRequest:
+#       type: object
+#       properties:
+#         title:
+#           type: string
+#         content:
+#           type: string
+#         image_url:
+#           type: string
+#       required: [title, content]

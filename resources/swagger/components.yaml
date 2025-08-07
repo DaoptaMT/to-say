@@ -1,0 +1,129 @@
+# components:
+#   schemas:
+#     User:
+#       type: object
+#       properties:
+#         id:
+#           type: integer
+#         name:
+#           type: string
+#         email:
+#           type: string
+#           format: email
+#         created_at:
+#           type: string
+#           format: date-time
+#         updated_at:
+#           type: string
+#           format: date-time
+
+#     RegisterRequest:
+#       type: object
+#       required:
+#         - name
+#         - email
+#         - password
+#       properties:
+#         name:
+#           type: string
+#         email:
+#           type: string
+#           format: email
+#         password:
+#           type: string
+#           format: password
+
+#     LoginRequest:
+#       type: object
+#       required:
+#         - email
+#         - password
+#       properties:
+#         email:
+#           type: string
+#           format: email
+#         password:
+#           type: string
+#           format: password
+
+#     LoginResponse:
+#       type: object
+#       properties:
+#         user:
+#           $ref: '#/components/schemas/User'
+#         token:
+#           type: string
+
+#     Message:
+#       type: object
+#       properties:
+#         id:
+#           type: integer
+#         user_id:
+#           type: integer
+#         type:
+#           type: string
+#           enum: [text, image, voice, music]
+#         content:
+#           type: string
+#         recipient_email:
+#           type: string
+#           format: email
+#         recipient_phone:
+#           type: string
+#           pattern: '^[0-9\-\+\(\)\s]+$'
+#         recipient_zalo:
+#           type: string
+#         status:
+#           type: string
+#           enum: [pending, approved, rejected]
+#         created_at:
+#           type: string
+#           format: date-time
+#         updated_at:
+#           type: string
+#           format: date-time
+
+#     CreateMessageRequest:
+#       type: object
+#       required:
+#         - type
+#         - content
+#       properties:
+#         type:
+#           type: string
+#           enum: [text, image, voice, music]
+#         content:
+#           type: string
+#         recipient_email:
+#           type: string
+#           format: email
+#         recipient_phone:
+#           type: string
+#           pattern: '^[0-9\-\+\(\)\s]+$'
+#         recipient_zalo:
+#           type: string
+
+#     MessageStatusUpdate:
+#       type: object
+#       required:
+#         - status
+#       properties:
+#         status:
+#           type: string
+#           enum: [pending, approved, rejected]
+
+#     ApproveRejectMessageResponse:
+#       type: object
+#       properties:
+#         message:
+#           $ref: '#/components/schemas/Message'
+#         status:
+#           type: string
+#           enum: [approved, rejected]
+
+#     ErrorResponse:
+#       type: object
+#       properties:
+#         message:
+#           type: string
